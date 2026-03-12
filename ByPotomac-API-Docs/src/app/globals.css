@@ -1,13 +1,6 @@
-@import 'tailwindcss';
-
-@theme inline {
-  --font-rajdhani: 'Rajdhani', sans-serif;
-  --font-quicksand: 'Quicksand', sans-serif;
-  --color-potomac-yellow: #FEC00F;
-  --color-potomac-turquoise: #00DED1;
-  --color-potomac-pink: #E91E63;
-  --color-potomac-gray: #2D3436;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   html {
