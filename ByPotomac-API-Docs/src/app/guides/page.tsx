@@ -13,7 +13,6 @@ const guides = [
     duration: '15 min',
     level: 'Beginner',
     href: '/docs/overview',
-    icon: '🚀',
   },
   {
     title: 'Authentication Best Practices',
@@ -23,7 +22,6 @@ const guides = [
     duration: '20 min',
     level: 'Intermediate',
     href: '/docs/authentication',
-    icon: '🔐',
   },
   {
     title: 'Building Real-time Chat Applications',
@@ -33,7 +31,6 @@ const guides = [
     duration: '30 min',
     level: 'Intermediate',
     href: '/docs/streaming',
-    icon: '💬',
   },
   {
     title: 'API Reference Documentation',
@@ -43,7 +40,6 @@ const guides = [
     duration: '25 min',
     level: 'Intermediate',
     href: '/docs/api-reference',
-    icon: '📚',
   },
   {
     title: 'Data Models and Schemas',
@@ -53,7 +49,6 @@ const guides = [
     duration: '20 min',
     level: 'Beginner',
     href: '/docs/data-models',
-    icon: '📁',
   },
   {
     title: 'Multi-tenant Application Architecture',
@@ -63,7 +58,6 @@ const guides = [
     duration: '35 min',
     level: 'Advanced',
     href: '/docs/multitenancy',
-    icon: '🏢',
   },
   {
     title: 'System Architecture Overview',
@@ -73,7 +67,6 @@ const guides = [
     duration: '40 min',
     level: 'Advanced',
     href: '/docs/architecture',
-    icon: '🤖',
   },
   {
     title: 'Error Handling and Debugging',
@@ -83,7 +76,6 @@ const guides = [
     duration: '25 min',
     level: 'Intermediate',
     href: '/docs/error-handling',
-    icon: '🐛',
   },
   {
     title: 'Observability and Monitoring',
@@ -93,7 +85,6 @@ const guides = [
     duration: '30 min',
     level: 'Advanced',
     href: '/docs/observability',
-    icon: '⚡',
   },
   {
     title: 'Middleware and Request Pipeline',
@@ -103,7 +94,6 @@ const guides = [
     duration: '20 min',
     level: 'Intermediate',
     href: '/docs/middleware',
-    icon: '🔗',
   },
   {
     title: 'Testing and Versioning',
@@ -113,7 +103,6 @@ const guides = [
     duration: '30 min',
     level: 'Intermediate',
     href: '/docs/testing',
-    icon: '🧪',
   },
   {
     title: 'Deployment and Production Setup',
@@ -123,7 +112,6 @@ const guides = [
     duration: '35 min',
     level: 'Advanced',
     href: '/docs/deployment',
-    icon: '🚀',
   },
 ];
 
@@ -132,13 +120,8 @@ const categories = [
   { id: 'getting-started', name: 'Getting Started' },
   { id: 'security', name: 'Security' },
   { id: 'chat-api', name: 'Chat API' },
-  { id: 'knowledge-base', name: 'Knowledge Base' },
-  { id: 'files', name: 'Files' },
   { id: 'architecture', name: 'Architecture' },
-  { id: 'ai-integration', name: 'AI Integration' },
   { id: 'development', name: 'Development' },
-  { id: 'performance', name: 'Performance' },
-  { id: 'integration', name: 'Integration' },
   { id: 'testing', name: 'Testing' },
   { id: 'deployment', name: 'Deployment' },
 ];
@@ -146,17 +129,17 @@ const categories = [
 function getLevelColor(level: string): string {
   switch (level) {
     case 'Beginner':
-      return 'bg-green-100 text-green-800';
+      return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
     case 'Intermediate':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
     case 'Advanced':
-      return 'bg-red-100 text-red-800';
+      return 'bg-red-500/10 text-red-400 border-red-500/30';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-muted text-muted-foreground border-border';
   }
 }
 
-// Inner component that reads search params — must be wrapped in Suspense
+// Inner component that reads search params
 function GuidesContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -180,7 +163,7 @@ function GuidesContent() {
   return (
     <>
       {/* Categories */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => {
@@ -194,10 +177,10 @@ function GuidesContent() {
                 <button
                   key={category.id}
                   onClick={() => handleCategoryClick(category.id)}
-                  className={`px-3 py-1 rounded-full text-sm font-rajdhani border transition-colors ${
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                     isActive
-                      ? 'border-potomac-yellow text-potomac-yellow bg-yellow-50'
-                      : 'border-gray-300 text-gray-700 hover:border-potomac-yellow hover:text-potomac-yellow'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'
                   }`}
                 >
                   {category.name} ({count})
@@ -211,37 +194,31 @@ function GuidesContent() {
       {/* Guide List */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {filteredGuides.length === 0 ? (
-          <p className="text-gray-500 text-center py-16">No guides found for this category.</p>
+          <p className="text-muted-foreground text-center py-16">No guides found for this category.</p>
         ) : (
-          <div className="grid gap-6">
-            {filteredGuides.map((guide) => (
+          <div className="grid gap-4">
+            {filteredGuides.map((guide, index) => (
               <Link
                 key={guide.title}
                 href={guide.href}
-                className="group bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 animate-fade-in-up"
+                className="group card-hover animate-fade-in-up"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <span className="text-3xl" role="img" aria-hidden="true">
-                        {guide.icon}
-                      </span>
-                      <div>
-                        <h3 className="text-xl font-rajdhani font-bold text-potomac-gray group-hover:text-potomac-yellow transition-colors">
-                          {guide.title}
-                        </h3>
-                        <p className="text-gray-600 mt-1">{guide.description}</p>
-                      </div>
-                    </div>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-heading font-bold text-foreground group-hover:text-primary transition-colors mb-2">
+                      {guide.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">{guide.description}</p>
 
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      <span className={`px-2 py-1 rounded-full font-medium ${getLevelColor(guide.level)}`}>
+                    <div className="flex flex-wrap items-center gap-3 text-sm">
+                      <span className={`badge border ${getLevelColor(guide.level)}`}>
                         {guide.level}
                       </span>
-                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
+                      <span className="badge badge-info">
                         {guide.category}
                       </span>
-                      <span className="flex items-center space-x-1">
+                      <span className="flex items-center gap-1.5 text-muted-foreground">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -249,7 +226,7 @@ function GuidesContent() {
                       </span>
                     </div>
                   </div>
-                  <svg className="w-6 h-6 text-gray-400 group-hover:text-potomac-yellow transition-colors mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
@@ -259,43 +236,67 @@ function GuidesContent() {
         )}
 
         {/* Learning Path */}
-        <div className="mt-16 bg-gradient-to-r from-potomac-yellow to-potomac-turquoise rounded-2xl p-8 text-white">
-          <h2 className="text-2xl font-rajdhani font-bold mb-6">Recommended Learning Path</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
-              <h3 className="font-rajdhani font-bold text-lg mb-2">🚀 Start Here</h3>
-              <p className="text-white/90 mb-4">
+        <div className="mt-16 card bg-gradient-to-br from-primary/10 via-accent/5 to-transparent border-primary/20">
+          <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Recommended Learning Path</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border">
+              <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="font-heading font-bold text-foreground mb-2">Start Here</h3>
+              <p className="text-muted-foreground text-sm mb-4">
                 Begin with our getting started guide to set up your environment and make your first API calls.
               </p>
               <Link
                 href="/docs/overview"
-                className="inline-block bg-white text-potomac-gray px-4 py-2 rounded-lg font-rajdhani font-bold hover:bg-gray-100 transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-primary hover:text-accent transition-colors font-medium"
               >
                 Get Started
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </Link>
             </div>
-            <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
-              <h3 className="font-rajdhani font-bold text-lg mb-2">🔒 Secure Your App</h3>
-              <p className="text-white/90 mb-4">
+            <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border">
+              <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="font-heading font-bold text-foreground mb-2">Secure Your App</h3>
+              <p className="text-muted-foreground text-sm mb-4">
                 Learn authentication best practices to keep your application and user data secure.
               </p>
               <Link
                 href="/docs/authentication"
-                className="inline-block bg-white text-potomac-gray px-4 py-2 rounded-lg font-rajdhani font-bold hover:bg-gray-100 transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-primary hover:text-accent transition-colors font-medium"
               >
                 Learn Security
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </Link>
             </div>
-            <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
-              <h3 className="font-rajdhani font-bold text-lg mb-2">🚀 Go Live</h3>
-              <p className="text-white/90 mb-4">
+            <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border">
+              <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                </svg>
+              </div>
+              <h3 className="font-heading font-bold text-foreground mb-2">Go Live</h3>
+              <p className="text-muted-foreground text-sm mb-4">
                 Deploy your application to production with proper configuration and monitoring.
               </p>
               <Link
                 href="/docs/deployment"
-                className="inline-block bg-white text-potomac-gray px-4 py-2 rounded-lg font-rajdhani font-bold hover:bg-gray-100 transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-primary hover:text-accent transition-colors font-medium"
               >
                 Deploy Now
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </Link>
             </div>
           </div>
@@ -303,24 +304,30 @@ function GuidesContent() {
 
         {/* Additional Resources */}
         <div className="mt-16">
-          <h2 className="text-2xl font-rajdhani font-bold text-potomac-gray mb-6">Additional Resources</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-rajdhani font-bold text-potomac-gray mb-4">Code Examples</h3>
-              <p className="text-gray-600 mb-4">
+          <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Additional Resources</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="card-hover">
+              <h3 className="text-lg font-heading font-bold text-foreground mb-3">Code Examples</h3>
+              <p className="text-muted-foreground text-sm mb-4">
                 Explore our collection of code examples and sample applications to see the ByPotomac SDK in action.
               </p>
-              <Link href="/examples" className="text-potomac-yellow hover:text-potomac-turquoise font-rajdhani font-bold transition-colors">
-                View Examples →
+              <Link href="/examples" className="text-primary hover:text-accent font-medium text-sm transition-colors inline-flex items-center gap-1">
+                View Examples
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </Link>
             </div>
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-rajdhani font-bold text-potomac-gray mb-4">SDK Libraries</h3>
-              <p className="text-gray-600 mb-4">
+            <div className="card-hover">
+              <h3 className="text-lg font-heading font-bold text-foreground mb-3">SDK Libraries</h3>
+              <p className="text-muted-foreground text-sm mb-4">
                 Download and install our official SDK libraries for popular programming languages.
               </p>
-              <Link href="/sdks" className="text-potomac-yellow hover:text-potomac-turquoise font-rajdhani font-bold transition-colors">
-                Browse SDKs →
+              <Link href="/sdks" className="text-primary hover:text-accent font-medium text-sm transition-colors inline-flex items-center gap-1">
+                Browse SDKs
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </Link>
             </div>
           </div>
@@ -328,27 +335,27 @@ function GuidesContent() {
       </main>
 
       {/* CTA Section */}
-      <section className="bg-gray-900 text-white py-16">
+      <section className="bg-card border-t border-border py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-rajdhani font-bold mb-4">Ready to Build Something Amazing?</h2>
-          <p className="text-xl text-gray-300 mb-8">
+          <h2 className="text-3xl font-heading font-bold text-foreground mb-4">Ready to Build Something Amazing?</h2>
+          <p className="text-lg text-muted-foreground mb-8">
             Join thousands of developers building the future of financial analysis with AI.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/api-reference"
-              className="btn-primary bg-white text-potomac-gray text-lg px-8 py-4 font-bold hover:bg-gray-100 focus-ring"
+              className="btn-primary text-base px-8 py-3"
             >
               Explore API Documentation
             </Link>
             <Link
               href="/support"
-              className="btn-secondary border-2 border-white text-white text-lg px-8 py-4 font-bold hover:bg-white hover:text-potomac-gray focus-ring"
+              className="btn-secondary text-base px-8 py-3"
             >
               Get Developer Support
             </Link>
           </div>
-          <div className="mt-8 text-gray-400 text-sm">Built to Conquer Risk®</div>
+          <div className="mt-8 text-muted-foreground text-sm">Built to Conquer Risk</div>
         </div>
       </section>
     </>
@@ -357,34 +364,43 @@ function GuidesContent() {
 
 export default function GuidesPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
+      <header className="bg-background/80 backdrop-blur-xl border-b border-border sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-rajdhani font-bold text-potomac-gray">Developer Guides</h1>
-              <p className="text-gray-600 mt-1">
+              <div className="flex items-center gap-3 mb-2">
+                <Link href="/" className="flex items-center gap-2 group">
+                  <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+                    <span className="text-primary-foreground font-bold text-xs">BP</span>
+                  </div>
+                </Link>
+                <span className="text-border">/</span>
+                <h1 className="text-2xl font-heading font-bold text-foreground">
+                  Developer Guides
+                </h1>
+              </div>
+              <p className="text-muted-foreground text-sm">
                 Step-by-step guides to help you build amazing applications with the ByPotomac SDK
               </p>
             </div>
-            <div className="hidden md:flex items-center space-x-4">
-              <Link href="/docs" className="btn-secondary focus-ring">
+            <div className="flex items-center gap-3">
+              <Link href="/docs" className="btn-ghost text-sm">
                 Documentation
               </Link>
-              <Link href="/api-reference" className="btn-primary focus-ring">
+              <Link href="/api-reference" className="btn-primary text-sm">
                 API Reference
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Suspense boundary required for useSearchParams in Next.js App Router */}
       <Suspense
         fallback={
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-gray-500">
-            Loading guides…
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-muted-foreground">
+            Loading guides...
           </div>
         }
       >

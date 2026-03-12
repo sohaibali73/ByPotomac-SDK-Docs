@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
-import { Rajdhani, Quicksand } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Rajdhani, Quicksand, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
 const rajdhani = Rajdhani({
@@ -10,8 +10,14 @@ const rajdhani = Rajdhani({
 
 const quicksand = Quicksand({
   subsets: ['latin'],
-  weight: ['300', '500', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-quicksand',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-jetbrains-mono',
 });
 
 export const metadata: Metadata = {
@@ -62,15 +68,21 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: '#0a0a0a',
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
-        className={`${rajdhani.variable} ${quicksand.variable} font-quicksand antialiased`}
+        className={`${rajdhani.variable} ${quicksand.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
         {children}
       </body>

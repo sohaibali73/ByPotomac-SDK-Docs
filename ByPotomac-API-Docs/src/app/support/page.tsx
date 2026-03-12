@@ -43,30 +43,34 @@ export default function SupportPage() {
     {
       title: 'Documentation',
       description: 'Find answers to common questions and learn how to use our API effectively.',
-      icon: '📚',
       href: '/docs',
-      color: 'bg-potomac-yellow',
+      gradient: 'from-primary/20 to-primary/5',
+      borderColor: 'border-primary/30',
+      iconColor: 'text-primary',
     },
     {
       title: 'API Reference',
       description: 'Complete reference documentation for all API endpoints and parameters.',
-      icon: '🔗',
       href: '/api-reference',
-      color: 'bg-potomac-turquoise',
+      gradient: 'from-accent/20 to-accent/5',
+      borderColor: 'border-accent/30',
+      iconColor: 'text-accent',
     },
     {
       title: 'Developer Guides',
       description: 'Step-by-step guides for common use cases and integration scenarios.',
-      icon: '🚀',
       href: '/guides',
-      color: 'bg-potomac-pink',
+      gradient: 'from-emerald-500/20 to-emerald-500/5',
+      borderColor: 'border-emerald-500/30',
+      iconColor: 'text-emerald-400',
     },
     {
       title: 'Community Forum',
       description: 'Connect with other developers and share knowledge.',
-      icon: '💬',
       href: '/community',
-      color: 'bg-potomac-gray',
+      gradient: 'from-blue-500/20 to-blue-500/5',
+      borderColor: 'border-blue-500/30',
+      iconColor: 'text-blue-400',
     },
   ];
 
@@ -76,69 +80,73 @@ export default function SupportPage() {
       description: 'Get help from our support team via email.',
       email: 'support@bypotomac.com',
       responseTime: 'Within 24 hours',
-      icon: '📧',
     },
     {
       title: 'Live Chat',
       description: 'Chat with our support team in real-time.',
       availability: 'Mon-Fri, 9 AM - 6 PM EST',
-      icon: '💬',
     },
     {
       title: 'Phone Support',
       description: 'Speak directly with our technical support team.',
       phone: '+1 (555) 123-4567',
       availability: 'Mon-Fri, 9 AM - 6 PM EST',
-      icon: '📞',
     },
     {
       title: 'Emergency Support',
       description: 'For critical issues affecting your production environment.',
       availability: '24/7',
-      icon: '🚨',
     },
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'operational': return 'bg-green-500';
-      case 'degraded': return 'bg-yellow-500';
+      case 'operational': return 'bg-emerald-500';
+      case 'degraded': return 'bg-amber-500';
       case 'partial': return 'bg-orange-500';
       case 'major': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      default: return 'bg-muted-foreground';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-background/80 backdrop-blur-xl border-b border-border sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
-            <h1 className="text-3xl font-rajdhani font-bold text-potomac-gray">
-              Support Center
-            </h1>
-            <p className="text-gray-600 mt-2">
-              We're here to help you succeed with the ByPotomac SDK
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <Link href="/" className="flex items-center gap-2 group">
+                <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+                  <span className="text-primary-foreground font-bold text-xs">BP</span>
+                </div>
+              </Link>
+              <span className="text-border">/</span>
+              <h1 className="text-2xl font-heading font-bold text-foreground">
+                Support Center
+              </h1>
+            </div>
+            <p className="text-muted-foreground">
+              We are here to help you succeed with the ByPotomac SDK
             </p>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Status Section */}
-      <section className="bg-gradient-to-r from-potomac-yellow to-potomac-turquoise text-white py-8">
+      <section className="border-b border-border bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <h2 className="text-2xl font-rajdhani font-bold">System Status</h2>
-              <p className="text-white/90">Current status of our services</p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+              <h2 className="text-lg font-heading font-bold text-foreground">System Status</h2>
+              <p className="text-muted-foreground text-sm">Current status of our services</p>
             </div>
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2">
-                <span className={`w-3 h-3 rounded-full ${getStatusColor('operational')} animate-pulse`}></span>
-                <span className="font-rajdhani font-bold">All Systems Operational</span>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className={`w-2.5 h-2.5 rounded-full ${getStatusColor('operational')} animate-pulse`}></span>
+                <span className="font-medium text-foreground text-sm">All Systems Operational</span>
               </div>
-              <Link href="/status" className="bg-white text-potomac-gray px-4 py-2 rounded-lg font-rajdhani font-bold hover:bg-gray-100 transition-colors">
+              <Link href="/status" className="btn-secondary text-sm">
                 View Details
               </Link>
             </div>
@@ -149,8 +157,8 @@ export default function SupportPage() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tabs */}
-        <div className="border-b border-gray-200 mb-8">
-          <nav className="-mb-px flex space-x-8">
+        <div className="border-b border-border mb-8">
+          <nav className="-mb-px flex gap-1">
             {[
               { id: 'overview', name: 'Overview' },
               { id: 'faqs', name: 'FAQs' },
@@ -160,10 +168,10 @@ export default function SupportPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`whitespace-nowrap py-2 px-1 border-b-2 font-rajdhani font-bold text-sm ${
+                className={`px-4 py-2.5 text-sm font-medium transition-colors rounded-t-lg ${
                   activeTab === tab.id
-                    ? 'border-potomac-yellow text-potomac-yellow'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'bg-primary/10 text-primary border-b-2 border-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
                 {tab.name}
@@ -176,23 +184,27 @@ export default function SupportPage() {
         {activeTab === 'overview' && (
           <div className="space-y-8">
             {/* Quick Actions */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {supportOptions.map((option) => (
                 <Link
                   key={option.title}
                   href={option.href}
-                  className={`group bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 ${option.color}`}
+                  className={`group card bg-gradient-to-br ${option.gradient} border ${option.borderColor} hover:border-muted-foreground/40 transition-all`}
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-3xl">{option.icon}</span>
-                    <svg className="w-5 h-5 text-white group-hover:text-gray-800 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className={`p-2 rounded-lg bg-background/50 ${option.iconColor}`}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <svg className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-rajdhani font-bold text-white mb-2 group-hover:text-gray-800">
+                  <h3 className="font-heading font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                     {option.title}
                   </h3>
-                  <p className="text-white/90 group-hover:text-gray-600 text-sm">
+                  <p className="text-muted-foreground text-sm">
                     {option.description}
                   </p>
                 </Link>
@@ -200,39 +212,39 @@ export default function SupportPage() {
             </div>
 
             {/* Getting Help */}
-            <div className="grid lg:grid-cols-2 gap-8">
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
-                <h3 className="text-xl font-rajdhani font-bold text-potomac-gray mb-4">Getting Started</h3>
-                <div className="space-y-3">
-                  <Link href="/docs/getting-started" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span className="w-2 h-2 bg-potomac-yellow rounded-full"></span>
-                    <span className="text-gray-700">Read the Getting Started Guide</span>
+            <div className="grid lg:grid-cols-2 gap-6">
+              <div className="card-hover">
+                <h3 className="text-lg font-heading font-bold text-foreground mb-4">Getting Started</h3>
+                <div className="space-y-1">
+                  <Link href="/docs/getting-started" className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
+                    <span className="w-2 h-2 bg-primary rounded-full"></span>
+                    <span className="text-muted-foreground hover:text-foreground transition-colors">Read the Getting Started Guide</span>
                   </Link>
-                  <Link href="/guides" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span className="w-2 h-2 bg-potomac-turquoise rounded-full"></span>
-                    <span className="text-gray-700">Explore Developer Guides</span>
+                  <Link href="/guides" className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
+                    <span className="w-2 h-2 bg-accent rounded-full"></span>
+                    <span className="text-muted-foreground hover:text-foreground transition-colors">Explore Developer Guides</span>
                   </Link>
-                  <Link href="/api-reference" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span className="w-2 h-2 bg-potomac-pink rounded-full"></span>
-                    <span className="text-gray-700">Browse API Reference</span>
+                  <Link href="/api-reference" className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
+                    <span className="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                    <span className="text-muted-foreground hover:text-foreground transition-colors">Browse API Reference</span>
                   </Link>
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
-                <h3 className="text-xl font-rajdhani font-bold text-potomac-gray mb-4">Common Issues</h3>
-                <div className="space-y-3">
-                  <Link href="/docs/authentication" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                    <span className="text-gray-700">Authentication Problems</span>
+              <div className="card-hover">
+                <h3 className="text-lg font-heading font-bold text-foreground mb-4">Common Issues</h3>
+                <div className="space-y-1">
+                  <Link href="/docs/authentication" className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
+                    <span className="w-2 h-2 bg-red-400 rounded-full"></span>
+                    <span className="text-muted-foreground hover:text-foreground transition-colors">Authentication Problems</span>
                   </Link>
-                  <Link href="/docs/rate-limiting" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                    <span className="text-gray-700">Rate Limiting</span>
+                  <Link href="/docs/rate-limiting" className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
+                    <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
+                    <span className="text-muted-foreground hover:text-foreground transition-colors">Rate Limiting</span>
                   </Link>
-                  <Link href="/docs/error-handling" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                    <span className="text-gray-700">Error Handling</span>
+                  <Link href="/docs/error-handling" className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
+                    <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                    <span className="text-muted-foreground hover:text-foreground transition-colors">Error Handling</span>
                   </Link>
                 </div>
               </div>
@@ -243,16 +255,16 @@ export default function SupportPage() {
         {/* FAQs Tab */}
         {activeTab === 'faqs' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-2xl font-rajdhani font-bold text-potomac-gray mb-6">Frequently Asked Questions</h3>
+            <div className="card">
+              <h3 className="text-xl font-heading font-bold text-foreground mb-6">Frequently Asked Questions</h3>
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
-                  <div key={index} className="border-b border-gray-200 pb-4">
-                    <h4 className="text-lg font-rajdhani font-bold text-potomac-gray mb-2">
+                  <div key={index} className="border-b border-border pb-4 last:border-0 last:pb-0">
+                    <h4 className="text-base font-heading font-bold text-foreground mb-2">
                       {faq.question}
                     </h4>
-                    <p className="text-gray-600">{faq.answer}</p>
-                    <span className="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full font-rajdhani">
+                    <p className="text-muted-foreground text-sm leading-relaxed">{faq.answer}</p>
+                    <span className="inline-block mt-3 badge badge-info text-xs">
                       {faq.category}
                     </span>
                   </div>
@@ -265,30 +277,34 @@ export default function SupportPage() {
         {/* Contact Tab */}
         {activeTab === 'contact' && (
           <div className="space-y-8">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-2xl font-rajdhani font-bold text-potomac-gray mb-6">Contact Our Support Team</h3>
-              <div className="grid md:grid-cols-2 gap-8">
+            <div className="card">
+              <h3 className="text-xl font-heading font-bold text-foreground mb-6">Contact Our Support Team</h3>
+              <div className="grid md:grid-cols-2 gap-6">
                 {contactMethods.map((method, index) => (
-                  <div key={index} className="text-center p-6 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-                    <div className="text-4xl mb-4">{method.icon}</div>
-                    <h4 className="text-lg font-rajdhani font-bold text-potomac-gray mb-2">
+                  <div key={index} className="text-center p-6 bg-muted/30 rounded-xl border border-border hover:border-muted-foreground/30 transition-colors">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="font-heading font-bold text-foreground mb-2">
                       {method.title}
                     </h4>
-                    <p className="text-gray-600 mb-4">{method.description}</p>
+                    <p className="text-muted-foreground text-sm mb-4">{method.description}</p>
                     {method.email && (
                       <div className="mb-2">
-                        <span className="text-sm text-gray-500">Email:</span>
-                        <p className="font-mono text-potomac-yellow">{method.email}</p>
+                        <span className="text-xs text-muted-foreground">Email:</span>
+                        <p className="font-mono text-primary text-sm">{method.email}</p>
                       </div>
                     )}
                     {method.phone && (
                       <div className="mb-2">
-                        <span className="text-sm text-gray-500">Phone:</span>
-                        <p className="font-mono text-potomac-yellow">{method.phone}</p>
+                        <span className="text-xs text-muted-foreground">Phone:</span>
+                        <p className="font-mono text-primary text-sm">{method.phone}</p>
                       </div>
                     )}
-                    <div className="text-sm text-gray-500">
-                      Response Time: {method.responseTime || method.availability}
+                    <div className="text-xs text-muted-foreground">
+                      Response: {method.responseTime || method.availability}
                     </div>
                   </div>
                 ))}
@@ -296,47 +312,47 @@ export default function SupportPage() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-2xl font-rajdhani font-bold text-potomac-gray mb-6">Send us a Message</h3>
+            <div className="card">
+              <h3 className="text-xl font-heading font-bold text-foreground mb-6">Send us a Message</h3>
               <form className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <label className="block text-sm font-medium text-foreground mb-2">Name</label>
                     <input
                       type="text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-potomac-yellow focus:border-transparent"
+                      className="input"
                       placeholder="Your name"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <label className="block text-sm font-medium text-foreground mb-2">Email</label>
                     <input
                       type="email"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-potomac-yellow focus:border-transparent"
+                      className="input"
                       placeholder="your@email.com"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                  <label className="block text-sm font-medium text-foreground mb-2">Subject</label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-potomac-yellow focus:border-transparent"
+                    className="input"
                     placeholder="Brief description of your issue"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <label className="block text-sm font-medium text-foreground mb-2">Message</label>
                   <textarea
                     rows={5}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-potomac-yellow focus:border-transparent"
+                    className="input resize-none"
                     placeholder="Please describe your issue in detail"
                   ></textarea>
                 </div>
                 <div className="flex justify-end">
                   <button
                     type="submit"
-                    className="btn-primary focus-ring"
+                    className="btn-primary"
                   >
                     Send Message
                   </button>
@@ -349,9 +365,9 @@ export default function SupportPage() {
         {/* Status Tab */}
         {activeTab === 'status' && (
           <div className="space-y-8">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-2xl font-rajdhani font-bold text-potomac-gray mb-6">System Status Overview</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="card">
+              <h3 className="text-xl font-heading font-bold text-foreground mb-6">System Status Overview</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
                   { service: 'API Service', status: 'operational', description: 'All systems operational' },
                   { service: 'Authentication', status: 'operational', description: 'All systems operational' },
@@ -360,12 +376,12 @@ export default function SupportPage() {
                   { service: 'AI Services', status: 'operational', description: 'All systems operational' },
                   { service: 'Webhooks', status: 'operational', description: 'All systems operational' },
                 ].map((service, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-4">
+                  <div key={index} className="bg-muted/30 rounded-xl p-4 border border-border">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-rajdhani font-bold text-potomac-gray">{service.service}</h4>
-                      <span className={`w-3 h-3 rounded-full ${getStatusColor(service.status)} animate-pulse`}></span>
+                      <h4 className="font-heading font-semibold text-foreground">{service.service}</h4>
+                      <span className={`w-2.5 h-2.5 rounded-full ${getStatusColor(service.status)} animate-pulse`}></span>
                     </div>
-                    <p className="text-sm text-gray-600">{service.description}</p>
+                    <p className="text-sm text-muted-foreground">{service.description}</p>
                   </div>
                 ))}
               </div>
@@ -375,24 +391,24 @@ export default function SupportPage() {
       </main>
 
       {/* CTA Section */}
-      <section className="bg-gray-900 text-white py-16">
+      <section className="bg-card border-t border-border py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-rajdhani font-bold mb-4">
+          <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
             Need More Help?
           </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Our support team is here to help you every step of the way. Whether you have a technical question or need assistance with your integration, we've got you covered.
+          <p className="text-lg text-muted-foreground mb-8">
+            Our support team is here to help you every step of the way. Whether you have a technical question or need assistance with your integration, we have got you covered.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/docs" className="btn-primary bg-white text-potomac-gray text-lg px-8 py-4 font-bold hover:bg-gray-100 focus-ring">
+            <Link href="/docs" className="btn-primary text-base px-8 py-3">
               View Documentation
             </Link>
-            <Link href="/support/contact" className="btn-secondary border-2 border-white text-white text-lg px-8 py-4 font-bold hover:bg-white hover:text-potomac-gray focus-ring">
+            <Link href="/support/contact" className="btn-secondary text-base px-8 py-3">
               Contact Support
             </Link>
           </div>
-          <div className="mt-8 text-gray-400 text-sm">
-            Built to Conquer Risk®
+          <div className="mt-8 text-muted-foreground text-sm">
+            Built to Conquer Risk
           </div>
         </div>
       </section>

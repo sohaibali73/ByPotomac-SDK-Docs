@@ -28,11 +28,11 @@ export default function CodeTabs({ examples, title }: CodeTabsProps) {
   };
 
   return (
-    <div className="rounded-lg overflow-hidden border border-gray-200 bg-gray-900">
+    <div className="rounded-xl overflow-hidden border border-border bg-card">
       {/* Header */}
-      <div className="flex items-center justify-between bg-gray-800 border-b border-gray-700 px-4 py-2">
+      <div className="flex items-center justify-between bg-muted border-b border-border px-4 py-2">
         <div className="flex items-center gap-2">
-          {title && <span className="text-sm text-gray-400">{title}</span>}
+          {title && <span className="text-sm text-muted-foreground">{title}</span>}
         </div>
         {/* Language Tabs */}
         <div className="flex items-center gap-1">
@@ -40,10 +40,10 @@ export default function CodeTabs({ examples, title }: CodeTabsProps) {
             <button
               key={example.language}
               onClick={() => setActiveTab(index)}
-              className={`px-3 py-1 text-xs rounded transition-colors ${
+              className={`px-3 py-1.5 text-xs rounded-md transition-all ${
                 activeTab === index
-                  ? 'bg-potomac-yellow text-potomac-gray font-medium'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                  ? 'bg-primary text-primary-foreground font-medium'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/80'
               }`}
             >
               {example.label}
@@ -55,13 +55,13 @@ export default function CodeTabs({ examples, title }: CodeTabsProps) {
       {/* Code Block */}
       <div className="relative">
         <pre className="p-4 overflow-x-auto text-sm">
-          <code className="text-gray-100">{examples[activeTab].code}</code>
+          <code className="text-muted-foreground font-mono">{examples[activeTab].code}</code>
         </pre>
 
         {/* Copy Button */}
         <button
           onClick={handleCopy}
-          className="absolute top-3 right-3 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded transition-colors"
+          className="absolute top-3 right-3 px-2.5 py-1 text-xs bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground rounded-md transition-colors border border-border"
         >
           {copied ? 'Copied!' : 'Copy'}
         </button>

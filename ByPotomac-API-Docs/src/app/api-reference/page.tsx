@@ -323,7 +323,7 @@ export default function ApiReferencePage() {
   ];
 
   const categories = [
-    { id: 'all', name: 'All Endpoints', count: apiEndpoints.length },
+    { id: 'all', name: 'All', count: apiEndpoints.length },
     { id: 'authentication', name: 'Authentication', count: 4 },
     { id: 'chat', name: 'Chat', count: 5 },
     { id: 'knowledge-base', name: 'Knowledge Base', count: 4 },
@@ -363,45 +363,53 @@ export default function ApiReferencePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
+      <header className="bg-background/80 backdrop-blur-xl border-b border-border sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-rajdhani font-bold text-potomac-gray">
-                API Reference
-              </h1>
-              <p className="text-gray-600 mt-1">
+              <div className="flex items-center gap-3 mb-2">
+                <Link href="/" className="flex items-center gap-2 group">
+                  <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+                    <span className="text-primary-foreground font-bold text-xs">BP</span>
+                  </div>
+                </Link>
+                <span className="text-border">/</span>
+                <h1 className="text-2xl font-heading font-bold text-foreground">
+                  API Reference
+                </h1>
+              </div>
+              <p className="text-muted-foreground text-sm">
                 Complete reference for all ByPotomac SDK API endpoints
               </p>
             </div>
-            <div className="hidden md:flex items-center space-x-4">
-              <Link href="/docs" className="btn-secondary focus-ring">
+            <div className="flex items-center gap-3">
+              <Link href="/docs" className="btn-ghost text-sm">
                 Documentation
               </Link>
-              <Link href="/guides" className="btn-primary focus-ring">
+              <Link href="/guides" className="btn-primary text-sm">
                 Developer Guides
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Filters and Search */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-            <div className="flex-1 max-w-lg">
+          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+            <div className="w-full lg:max-w-md">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Search endpoints..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-potomac-yellow focus:border-transparent"
+                  className="input pl-10"
                 />
-                <svg className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -411,13 +419,14 @@ export default function ApiReferencePage() {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-3 py-1 rounded-full text-sm font-rajdhani border transition-colors ${
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                     selectedCategory === category.id
-                      ? 'bg-potomac-yellow text-potomac-gray border-potomac-yellow'
-                      : 'bg-white text-gray-700 border-gray-300 hover:border-potomac-yellow'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'
                   }`}
                 >
-                  {category.name} ({category.count})
+                  {category.name}
+                  <span className="ml-1.5 opacity-70">({category.count})</span>
                 </button>
               ))}
             </div>
@@ -427,38 +436,44 @@ export default function ApiReferencePage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-6">
-          <p className="text-gray-600">
+        <div className="mb-6 flex items-center justify-between">
+          <p className="text-muted-foreground text-sm">
             Showing {filteredEndpoints.length} of {apiEndpoints.length} endpoints
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {filteredEndpoints.map((endpoint, index) => (
             <div
-              key={endpoint.path}
-              className="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow animate-fade-in-up"
+              key={`${endpoint.method}-${endpoint.path}`}
+              className="card-hover animate-fade-in-up"
+              style={{ animationDelay: `${index * 30}ms` }}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
+                <div className="flex items-center gap-3">
                   <span className={`api-method ${getMethodColor(endpoint.method)}`}>
                     {endpoint.method}
                   </span>
-                  <span className="text-sm text-gray-500 font-mono">{endpoint.path}</span>
+                  <code className="text-sm text-muted-foreground font-mono">{endpoint.path}</code>
+                </div>
+                <div className="flex items-center gap-2 sm:ml-auto">
                   <span className={`badge ${getStatusBadge(endpoint.status)}`}>
                     {endpoint.status}
                   </span>
-                  <span className="badge badge-info text-gray-700">{endpoint.version}</span>
+                  <span className="badge badge-info">{endpoint.version}</span>
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-rajdhani font-bold text-potomac-gray mb-1">
+                <h3 className="text-lg font-heading font-bold text-foreground mb-1">
                   {endpoint.title}
                 </h3>
-                <p className="text-gray-600">{endpoint.description}</p>
-                <Link href="/docs/api-reference" className="mt-3 inline-flex items-center text-sm text-potomac-yellow hover:text-potomac-turquoise transition-colors">
-                  View in API Reference
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <p className="text-muted-foreground text-sm">{endpoint.description}</p>
+                <Link 
+                  href="/docs/api-reference" 
+                  className="mt-3 inline-flex items-center gap-1 text-sm text-primary hover:text-accent transition-colors group"
+                >
+                  View details
+                  <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
@@ -468,15 +483,19 @@ export default function ApiReferencePage() {
         </div>
 
         {filteredEndpoints.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-rajdhani font-bold text-potomac-gray mb-2">
+          <div className="text-center py-16">
+            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-heading font-bold text-foreground mb-2">
               No endpoints found
             </h3>
-            <p className="text-gray-600 mb-6">
-              Try adjusting your search terms or filters to find what you're looking for.
+            <p className="text-muted-foreground mb-6">
+              Try adjusting your search terms or filters to find what you are looking for.
             </p>
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center">
               <button
                 onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
                 className="btn-secondary"
@@ -492,38 +511,62 @@ export default function ApiReferencePage() {
       </main>
 
       {/* Quick Reference */}
-      <section className="bg-gray-900 text-white py-12">
+      <section className="bg-card border-t border-border py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             <div>
-              <h3 className="text-2xl font-rajdhani font-bold mb-4">Rate Limits</h3>
-              <div className="space-y-2 text-gray-300">
-                <p><strong>Authentication:</strong> 60 requests per minute per IP</p>
-                <p><strong>Chat API:</strong> 30 requests per minute per user</p>
-                <p><strong>General API:</strong> 120 requests per minute per user</p>
-                <p><strong>File Upload:</strong> 10 uploads per minute per user</p>
+              <h3 className="text-xl font-heading font-bold text-foreground mb-4">Rate Limits</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Authentication</span>
+                  <span className="text-foreground font-medium">60 req/min per IP</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Chat API</span>
+                  <span className="text-foreground font-medium">30 req/min per user</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">General API</span>
+                  <span className="text-foreground font-medium">120 req/min per user</span>
+                </div>
+                <div className="flex justify-between py-2">
+                  <span className="text-muted-foreground">File Upload</span>
+                  <span className="text-foreground font-medium">10 uploads/min per user</span>
+                </div>
               </div>
             </div>
             <div>
-              <h3 className="text-2xl font-rajdhani font-bold mb-4">Response Formats</h3>
-              <div className="space-y-2 text-gray-300">
-                <p><strong>Content-Type:</strong> application/json</p>
-                <p><strong>Encoding:</strong> UTF-8</p>
-                <p><strong>Time Format:</strong> ISO 8601</p>
-                <p><strong>Timezone:</strong> UTC</p>
+              <h3 className="text-xl font-heading font-bold text-foreground mb-4">Response Formats</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Content-Type</span>
+                  <code className="text-foreground font-mono text-xs bg-muted px-2 py-0.5 rounded">application/json</code>
+                </div>
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Encoding</span>
+                  <code className="text-foreground font-mono text-xs bg-muted px-2 py-0.5 rounded">UTF-8</code>
+                </div>
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Time Format</span>
+                  <code className="text-foreground font-mono text-xs bg-muted px-2 py-0.5 rounded">ISO 8601</code>
+                </div>
+                <div className="flex justify-between py-2">
+                  <span className="text-muted-foreground">Timezone</span>
+                  <code className="text-foreground font-mono text-xs bg-muted px-2 py-0.5 rounded">UTC</code>
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="mt-8 pt-8 border-t border-gray-800">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="text-gray-400">
-                Need help with the API? <Link href="/support" className="text-white hover:text-potomac-yellow transition-colors">Contact Support</Link>
+          <div className="mt-10 pt-8 border-t border-border">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div className="text-muted-foreground text-sm">
+                Need help with the API? <Link href="/support" className="text-primary hover:text-accent transition-colors">Contact Support</Link>
               </div>
-              <div className="flex space-x-4 mt-4 md:mt-0">
-                <Link href="/docs/authentication" className="text-white hover:text-potomac-yellow transition-colors">Authentication Guide</Link>
-                <Link href="/docs/error-handling" className="text-white hover:text-potomac-yellow transition-colors">Error Handling</Link>
-                <Link href="/docs/middleware" className="text-white hover:text-potomac-yellow transition-colors">Middleware</Link>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/docs/authentication" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Authentication Guide</Link>
+                <Link href="/docs/error-handling" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Error Handling</Link>
+                <Link href="/docs/middleware" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Middleware</Link>
               </div>
             </div>
           </div>

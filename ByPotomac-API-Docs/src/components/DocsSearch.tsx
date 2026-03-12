@@ -65,14 +65,14 @@ export default function DocsSearch() {
       {/* Search Trigger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+        className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground bg-muted rounded-lg hover:bg-muted/80 hover:text-foreground transition-colors border border-border"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <span className="hidden sm:inline">Search docs...</span>
-        <kbd className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 text-xs bg-white rounded border border-gray-300">
-          <span className="text-xs">Cmd</span>K
+        <span className="hidden sm:inline">Search...</span>
+        <kbd className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 text-xs bg-background rounded border border-border ml-2">
+          <span className="text-[10px]">Cmd</span>K
         </kbd>
       </button>
 
@@ -80,14 +80,14 @@ export default function DocsSearch() {
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           {/* Backdrop */}
-          <div className="fixed inset-0 bg-black/50" onClick={() => setIsOpen(false)} />
+          <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
           {/* Modal */}
-          <div className="relative min-h-screen flex items-start justify-center pt-16 px-4">
-            <div className="relative w-full max-w-xl bg-white rounded-xl shadow-2xl">
+          <div className="relative min-h-screen flex items-start justify-center pt-20 px-4">
+            <div className="relative w-full max-w-xl bg-card rounded-xl shadow-2xl border border-border animate-fade-in-up">
               {/* Search Input */}
-              <div className="flex items-center border-b border-gray-200">
-                <svg className="w-5 h-5 ml-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center border-b border-border">
+                <svg className="w-5 h-5 ml-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <input
@@ -95,12 +95,12 @@ export default function DocsSearch() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search documentation..."
-                  className="w-full px-4 py-4 text-lg focus:outline-none"
+                  className="w-full px-4 py-4 text-base bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none"
                   autoFocus
                 />
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="mr-4 px-2 py-1 text-xs text-gray-500 bg-gray-100 rounded hover:bg-gray-200"
+                  className="mr-4 px-2 py-1 text-xs text-muted-foreground bg-muted rounded hover:bg-muted/80 hover:text-foreground transition-colors border border-border"
                 >
                   ESC
                 </button>
@@ -115,18 +115,18 @@ export default function DocsSearch() {
                         <Link
                           href={`/docs/${result.slug}`}
                           onClick={handleSelect}
-                          className="flex items-center gap-4 px-4 py-3 hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-4 px-4 py-3 hover:bg-muted transition-colors"
                         >
-                          <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
-                            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center shrink-0 border border-border">
+                            <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-potomac-gray truncate">{result.title}</h4>
-                            <p className="text-sm text-gray-500 truncate">{result.description}</p>
+                            <h4 className="font-medium text-foreground truncate">{result.title}</h4>
+                            <p className="text-sm text-muted-foreground truncate">{result.description}</p>
                           </div>
-                          <span className="text-xs text-gray-400 capitalize shrink-0">
+                          <span className="text-xs text-muted-foreground capitalize shrink-0 bg-muted px-2 py-1 rounded">
                             {result.category}
                           </span>
                         </Link>
@@ -134,14 +134,19 @@ export default function DocsSearch() {
                     ))}
                   </ul>
                 ) : query ? (
-                  <div className="px-4 py-8 text-center">
-                    <p className="text-gray-500">No results found for "{query}"</p>
-                    <p className="text-sm text-gray-400 mt-1">Try searching for a different term</p>
+                  <div className="px-4 py-12 text-center">
+                    <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </div>
+                    <p className="text-muted-foreground">No results found for &ldquo;{query}&rdquo;</p>
+                    <p className="text-sm text-muted-foreground/70 mt-1">Try searching for a different term</p>
                   </div>
                 ) : (
                   <div className="px-4 py-6">
-                    <p className="text-sm text-gray-500 mb-4">Quick Links</p>
-                    <ul className="space-y-2">
+                    <p className="text-xs text-muted-foreground mb-4 uppercase tracking-wider font-medium">Quick Links</p>
+                    <ul className="space-y-1">
                       {[
                         { title: 'SDK Overview', slug: 'overview' },
                         { title: 'Authentication', slug: 'authentication' },
@@ -152,9 +157,9 @@ export default function DocsSearch() {
                           <Link
                             href={`/docs/${item.slug}`}
                             onClick={handleSelect}
-                            className="flex items-center gap-2 px-2 py-1.5 text-sm text-gray-600 hover:text-potomac-gray hover:bg-gray-50 rounded transition-colors"
+                            className="flex items-center gap-2 px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
                           >
-                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                             {item.title}
@@ -167,15 +172,15 @@ export default function DocsSearch() {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-gray-200 px-4 py-2 flex items-center justify-between text-xs text-gray-400">
+              <div className="border-t border-border px-4 py-3 flex items-center justify-between text-xs text-muted-foreground">
                 <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-gray-100 rounded border border-gray-200">Enter</kbd>
-                    to select
+                  <span className="flex items-center gap-1.5">
+                    <kbd className="px-1.5 py-0.5 bg-muted rounded border border-border text-[10px]">Enter</kbd>
+                    <span>to select</span>
                   </span>
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-gray-100 rounded border border-gray-200">Esc</kbd>
-                    to close
+                  <span className="flex items-center gap-1.5">
+                    <kbd className="px-1.5 py-0.5 bg-muted rounded border border-border text-[10px]">Esc</kbd>
+                    <span>to close</span>
                   </span>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import DocsSearch from './DocsSearch';
@@ -84,22 +84,46 @@ const navigationStructure: NavSection[] = [
 
 export default function DocsLayout({ children, tableOfContents = [], title }: DocsLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
   const pathname = usePathname();
   const currentSlug = pathname?.replace('/docs/', '') || '';
 
+  // Track active section for table of contents
+  useEffect(() => {
+    if (tableOfContents.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-80px 0px -80% 0px' }
+    );
+
+    tableOfContents.forEach((item) => {
+      const element = document.getElementById(item.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [tableOfContents]);
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Top Navigation */}
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div className="flex items-center justify-between h-16 px-4 lg:px-8">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+        <div className="flex items-center justify-between h-16 px-4 lg:px-8 max-w-[1800px] mx-auto">
           <div className="flex items-center gap-4">
             {/* Mobile menu button */}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-potomac-yellow"
+              className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus-ring"
               aria-label="Toggle navigation"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {sidebarOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -109,39 +133,39 @@ export default function DocsLayout({ children, tableOfContents = [], title }: Do
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-potomac-yellow rounded-lg flex items-center justify-center">
-                <span className="text-potomac-gray font-bold text-sm">BP</span>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+                <span className="text-primary-foreground font-bold text-sm">BP</span>
               </div>
               <div className="hidden sm:block">
-                <span className="block text-lg font-rajdhani font-bold text-potomac-gray">ByPotomac SDK</span>
-                <span className="text-xs text-gray-500">Documentation</span>
+                <span className="block text-base font-heading font-bold text-foreground">ByPotomac SDK</span>
+                <span className="text-xs text-muted-foreground">Documentation</span>
               </div>
             </Link>
           </div>
 
           {/* Header Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/docs/overview" className="text-sm text-gray-600 hover:text-potomac-gray transition-colors">
+          <nav className="hidden md:flex items-center gap-1">
+            <Link href="/docs/overview" className="nav-link px-4 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors">
               Docs
             </Link>
-            <Link href="/api-reference" className="text-sm text-gray-600 hover:text-potomac-gray transition-colors">
+            <Link href="/api-reference" className="nav-link px-4 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors">
               API Reference
             </Link>
-            <Link href="/guides" className="text-sm text-gray-600 hover:text-potomac-gray transition-colors">
+            <Link href="/guides" className="nav-link px-4 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors">
               Guides
             </Link>
-            <Link href="/support" className="text-sm text-gray-600 hover:text-potomac-gray transition-colors">
+            <Link href="/support" className="nav-link px-4 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors">
               Support
             </Link>
           </nav>
 
           {/* Search and Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <DocsSearch />
             <Link
               href="/api-reference"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-potomac-yellow text-potomac-gray rounded-lg hover:bg-potomac-turquoise transition-colors"
+              className="hidden sm:inline-flex btn-primary text-sm"
             >
               Get Started
             </Link>
@@ -149,25 +173,28 @@ export default function DocsLayout({ children, tableOfContents = [], title }: Do
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex max-w-[1800px] mx-auto">
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
-          <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setSidebarOpen(false)} />
+          <div 
+            className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm lg:hidden" 
+            onClick={() => setSidebarOpen(false)} 
+          />
         )}
 
         {/* Sidebar */}
         <aside
-          className={`fixed lg:sticky top-16 z-40 h-[calc(100vh-4rem)] w-72 bg-white border-r border-gray-200 overflow-y-auto transition-transform lg:translate-x-0 ${
+          className={`fixed lg:sticky top-16 z-40 h-[calc(100vh-4rem)] w-72 bg-background lg:bg-transparent border-r border-border overflow-y-auto transition-transform duration-300 lg:translate-x-0 ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
           <nav className="p-4 space-y-6">
-            {navigationStructure.map((section) => (
-              <div key={section.title}>
-                <h3 className="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            {navigationStructure.map((section, sectionIndex) => (
+              <div key={section.title} className="animate-fade-in-up" style={{ animationDelay: `${sectionIndex * 50}ms` }}>
+                <h3 className="section-header">
                   {section.title}
                 </h3>
-                <ul className="space-y-1">
+                <ul className="space-y-0.5">
                   {section.items.map((item) => {
                     const isActive = currentSlug === item.slug;
                     return (
@@ -175,11 +202,7 @@ export default function DocsLayout({ children, tableOfContents = [], title }: Do
                         <Link
                           href={`/docs/${item.slug}`}
                           onClick={() => setSidebarOpen(false)}
-                          className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                            isActive
-                              ? 'bg-potomac-yellow/10 text-potomac-gray font-medium border-l-2 border-potomac-yellow'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-potomac-gray'
-                          }`}
+                          className={`sidebar-link ${isActive ? 'sidebar-link-active' : ''}`}
                         >
                           {item.title}
                         </Link>
@@ -194,38 +217,53 @@ export default function DocsLayout({ children, tableOfContents = [], title }: Do
 
         {/* Main Content */}
         <main className="flex-1 min-w-0">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             {/* Breadcrumb */}
-            <nav className="mb-6">
-              <ol className="flex items-center gap-2 text-sm text-gray-500">
+            <nav className="mb-8" aria-label="Breadcrumb">
+              <ol className="flex items-center gap-2 text-sm">
                 <li>
-                  <Link href="/" className="hover:text-potomac-gray transition-colors">
+                  <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
                     Home
                   </Link>
                 </li>
-                <li>/</li>
+                <li className="text-muted-foreground">/</li>
                 <li>
-                  <Link href="/docs/overview" className="hover:text-potomac-gray transition-colors">
+                  <Link href="/docs/overview" className="text-muted-foreground hover:text-foreground transition-colors">
                     Documentation
                   </Link>
                 </li>
                 {title && (
                   <>
-                    <li>/</li>
-                    <li className="text-potomac-gray font-medium">{title}</li>
+                    <li className="text-muted-foreground">/</li>
+                    <li className="text-foreground font-medium">{title}</li>
                   </>
                 )}
               </ol>
             </nav>
 
             {/* Content */}
-            <article className="prose prose-gray max-w-none">{children}</article>
+            <article className="doc-content animate-fade-in-up">{children}</article>
 
             {/* Page Navigation */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <div className="flex justify-between">
-                <div>{/* Previous page link would go here */}</div>
-                <div>{/* Next page link would go here */}</div>
+            <div className="mt-16 pt-8 border-t border-border">
+              <div className="flex justify-between items-center">
+                <div className="text-sm text-muted-foreground">
+                  Was this page helpful?
+                </div>
+                <div className="flex gap-2">
+                  <button className="btn-ghost text-sm">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    Yes
+                  </button>
+                  <button className="btn-ghost text-sm">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.095c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                    </svg>
+                    No
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -234,15 +272,15 @@ export default function DocsLayout({ children, tableOfContents = [], title }: Do
         {/* Table of Contents - Desktop */}
         {tableOfContents.length > 0 && (
           <aside className="hidden xl:block w-64 shrink-0">
-            <div className="sticky top-20 p-4 overflow-y-auto max-h-[calc(100vh-6rem)]">
-              <h4 className="text-sm font-semibold text-gray-900 mb-4">On this page</h4>
-              <nav>
-                <ul className="space-y-2 text-sm">
+            <div className="sticky top-24 p-4 overflow-y-auto max-h-[calc(100vh-8rem)]">
+              <h4 className="text-sm font-semibold text-foreground mb-4">On this page</h4>
+              <nav aria-label="Table of contents">
+                <ul className="space-y-1">
                   {tableOfContents.map((item) => (
                     <li key={item.id} style={{ paddingLeft: `${(item.level - 1) * 12}px` }}>
                       <a
                         href={`#${item.id}`}
-                        className="block py-1 text-gray-600 hover:text-potomac-gray transition-colors"
+                        className={`toc-link ${activeSection === item.id ? 'toc-link-active' : ''}`}
                       >
                         {item.text}
                       </a>

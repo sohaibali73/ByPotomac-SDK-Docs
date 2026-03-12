@@ -25,7 +25,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="absolute top-2 right-2 px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded transition-colors"
+      className="absolute top-3 right-3 px-2.5 py-1 text-xs bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground rounded-md transition-colors border border-border"
       aria-label="Copy code"
     >
       {copied ? 'Copied!' : 'Copy'}
@@ -46,7 +46,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '');
           return (
-            <h1 id={id} className="text-4xl font-rajdhani font-bold text-potomac-gray mb-6 mt-8 first:mt-0" {...props}>
+            <h1 id={id} className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-6 mt-8 first:mt-0" {...props}>
               {children}
             </h1>
           );
@@ -60,10 +60,10 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           return (
             <h2
               id={id}
-              className="text-2xl font-rajdhani font-bold text-potomac-gray mb-4 mt-10 pt-6 border-t border-gray-200"
+              className="text-2xl font-heading font-bold text-foreground mb-4 mt-12 pt-6 border-t border-border"
               {...props}
             >
-              <a href={`#${id}`} className="hover:text-potomac-yellow transition-colors">
+              <a href={`#${id}`} className="hover:text-primary transition-colors">
                 {children}
               </a>
             </h2>
@@ -76,8 +76,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '');
           return (
-            <h3 id={id} className="text-xl font-rajdhani font-bold text-potomac-gray mb-3 mt-8" {...props}>
-              <a href={`#${id}`} className="hover:text-potomac-yellow transition-colors">
+            <h3 id={id} className="text-xl font-heading font-bold text-foreground mb-3 mt-8" {...props}>
+              <a href={`#${id}`} className="hover:text-primary transition-colors">
                 {children}
               </a>
             </h3>
@@ -90,30 +90,30 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '');
           return (
-            <h4 id={id} className="text-lg font-rajdhani font-bold text-potomac-gray mb-2 mt-6" {...props}>
+            <h4 id={id} className="text-lg font-heading font-semibold text-foreground mb-2 mt-6" {...props}>
               {children}
             </h4>
           );
         },
         // Paragraphs
         p: ({ children, ...props }) => (
-          <p className="text-gray-700 leading-relaxed mb-4" {...props}>
+          <p className="text-muted-foreground leading-relaxed mb-4" {...props}>
             {children}
           </p>
         ),
         // Lists
         ul: ({ children, ...props }) => (
-          <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1 ml-4" {...props}>
+          <ul className="list-disc text-muted-foreground mb-4 space-y-2 ml-6" {...props}>
             {children}
           </ul>
         ),
         ol: ({ children, ...props }) => (
-          <ol className="list-decimal list-inside text-gray-700 mb-4 space-y-1 ml-4" {...props}>
+          <ol className="list-decimal text-muted-foreground mb-4 space-y-2 ml-6" {...props}>
             {children}
           </ol>
         ),
         li: ({ children, ...props }) => (
-          <li className="text-gray-700 leading-relaxed" {...props}>
+          <li className="text-muted-foreground leading-relaxed" {...props}>
             {children}
           </li>
         ),
@@ -121,7 +121,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         a: ({ children, href, ...props }) => (
           <a
             href={href}
-            className="text-potomac-yellow hover:text-potomac-turquoise underline transition-colors"
+            className="text-primary hover:text-accent underline underline-offset-2 transition-colors"
             target={href?.startsWith('http') ? '_blank' : undefined}
             rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
             {...props}
@@ -145,7 +145,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           return (
             <div className="relative group mb-6">
               <pre
-                className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm leading-relaxed"
+                className="bg-card text-foreground p-4 rounded-xl overflow-x-auto text-sm leading-relaxed border border-border"
                 {...props}
               >
                 {children}
@@ -158,7 +158,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           const isInline = !className;
           if (isInline) {
             return (
-              <code className="bg-gray-100 text-potomac-gray px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+              <code className="bg-muted text-foreground px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
                 {children}
               </code>
             );
@@ -166,7 +166,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           // For code blocks, the className contains language info like "language-json"
           const language = className?.replace('language-', '') || '';
           return (
-            <code className={`language-${language}`} {...props}>
+            <code className={`language-${language} font-mono`} {...props}>
               {children}
             </code>
           );
@@ -174,7 +174,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         // Blockquotes
         blockquote: ({ children, ...props }) => (
           <blockquote
-            className="border-l-4 border-potomac-yellow bg-gray-50 pl-4 py-2 my-4 italic text-gray-700"
+            className="border-l-2 border-primary bg-muted/50 pl-4 py-3 my-6 text-muted-foreground rounded-r-lg"
             {...props}
           >
             {children}
@@ -183,56 +183,56 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         // Tables
         table: ({ children, ...props }) => (
           <div className="overflow-x-auto mb-6">
-            <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg" {...props}>
+            <table className="min-w-full divide-y divide-border border border-border rounded-xl overflow-hidden" {...props}>
               {children}
             </table>
           </div>
         ),
         thead: ({ children, ...props }) => (
-          <thead className="bg-gray-50" {...props}>
+          <thead className="bg-muted" {...props}>
             {children}
           </thead>
         ),
         tbody: ({ children, ...props }) => (
-          <tbody className="bg-white divide-y divide-gray-200" {...props}>
+          <tbody className="bg-card divide-y divide-border" {...props}>
             {children}
           </tbody>
         ),
         tr: ({ children, ...props }) => (
-          <tr className="hover:bg-gray-50 transition-colors" {...props}>
+          <tr className="hover:bg-muted/50 transition-colors" {...props}>
             {children}
           </tr>
         ),
         th: ({ children, ...props }) => (
           <th
-            className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            className="px-4 py-3 text-left text-xs font-semibold text-foreground uppercase tracking-wider"
             {...props}
           >
             {children}
           </th>
         ),
         td: ({ children, ...props }) => (
-          <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap" {...props}>
+          <td className="px-4 py-3 text-sm text-muted-foreground" {...props}>
             {children}
           </td>
         ),
         // Horizontal rule
-        hr: () => <hr className="my-8 border-t border-gray-200" />,
+        hr: () => <hr className="my-10 border-t border-border" />,
         // Strong/Bold
         strong: ({ children, ...props }) => (
-          <strong className="font-semibold text-potomac-gray" {...props}>
+          <strong className="font-semibold text-foreground" {...props}>
             {children}
           </strong>
         ),
         // Emphasis/Italic
         em: ({ children, ...props }) => (
-          <em className="italic" {...props}>
+          <em className="italic text-muted-foreground" {...props}>
             {children}
           </em>
         ),
         // Images
         img: ({ src, alt, ...props }) => (
-          <img src={src} alt={alt || ''} className="max-w-full h-auto rounded-lg my-4 shadow-sm" {...props} />
+          <img src={src} alt={alt || ''} className="max-w-full h-auto rounded-xl my-6 border border-border" {...props} />
         ),
       }}
     >
