@@ -1,6 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-potomac-yellow: #FEC00F;
+  --color-potomac-gray: #2D3436;
+  --color-potomac-turquoise: #00DED1;
+  --color-potomac-pink: #E91E63;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  --font-quicksand: 'Quicksand', sans-serif;
+}
 
 @layer base {
   html {
@@ -8,7 +15,8 @@
   }
   
   body {
-    @apply text-potomac-gray bg-white;
+    color: var(--color-potomac-gray);
+    background-color: white;
   }
 }
 
