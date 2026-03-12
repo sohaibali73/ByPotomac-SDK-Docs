@@ -435,11 +435,9 @@ export default function ApiReferencePage() {
 
         <div className="space-y-4">
           {filteredEndpoints.map((endpoint, index) => (
-            <Link
+            <div
               key={endpoint.path}
-              href={`/api-reference${endpoint.path}`}
               className="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow animate-fade-in-up"
-              style={{ animationDelay: `${index * 50}ms` }}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-3">
@@ -452,17 +450,20 @@ export default function ApiReferencePage() {
                   </span>
                   <span className="badge badge-info text-gray-700">{endpoint.version}</span>
                 </div>
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
               </div>
               <div>
                 <h3 className="text-lg font-rajdhani font-bold text-potomac-gray mb-1">
                   {endpoint.title}
                 </h3>
                 <p className="text-gray-600">{endpoint.description}</p>
+                <Link href="/docs/api-reference" className="mt-3 inline-flex items-center text-sm text-potomac-yellow hover:text-potomac-turquoise transition-colors">
+                  View in API Reference
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 
@@ -522,7 +523,7 @@ export default function ApiReferencePage() {
               <div className="flex space-x-4 mt-4 md:mt-0">
                 <Link href="/docs/authentication" className="text-white hover:text-potomac-yellow transition-colors">Authentication Guide</Link>
                 <Link href="/docs/error-handling" className="text-white hover:text-potomac-yellow transition-colors">Error Handling</Link>
-                <Link href="/docs/rate-limiting" className="text-white hover:text-potomac-yellow transition-colors">Rate Limiting</Link>
+                <Link href="/docs/middleware" className="text-white hover:text-potomac-yellow transition-colors">Middleware</Link>
               </div>
             </div>
           </div>
