@@ -38,9 +38,9 @@
     "typescript": "5.9.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.1",
+    "@tailwindcss/postcss": "4.0.0",
     "autoprefixer": "10.4.27",
     "postcss": "8.5.8",
-    "tailwindcss": "4.2.1"
+    "tailwindcss": "4.0.0"
   }
 }
