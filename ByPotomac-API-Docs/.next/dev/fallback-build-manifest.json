@@ -1,31 +1,6 @@
 {
   "pages": {
-    "/_app": [
-      "static/chunks/f09eb_next_dist_compiled_f52a9533._.js",
-      "static/chunks/f09eb_next_dist_shared_lib_7f82b5de._.js",
-      "static/chunks/f09eb_next_dist_client_193fc2d5._.js",
-      "static/chunks/f09eb_next_dist_5d574e73._.js",
-      "static/chunks/f09eb_next_app_25ced0cb.js",
-      "static/chunks/[next]_entry_page-loader_ts_a252f0c1._.js",
-      "static/chunks/4830a_react-dom_779571ec._.js",
-      "static/chunks/2440c__pnpm_dfd59234._.js",
-      "static/chunks/[root-of-the-server]__51e020db._.js",
-      "static/chunks/Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__app_2da965e7._.js",
-      "static/chunks/turbopack-Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__app_3ccdd71e._.js"
-    ],
-    "/_error": [
-      "static/chunks/f09eb_next_dist_compiled_f52a9533._.js",
-      "static/chunks/f09eb_next_dist_shared_lib_bec91561._.js",
-      "static/chunks/f09eb_next_dist_client_193fc2d5._.js",
-      "static/chunks/f09eb_next_dist_8ecd854c._.js",
-      "static/chunks/f09eb_next_error_681b182f.js",
-      "static/chunks/[next]_entry_page-loader_ts_c4cf1968._.js",
-      "static/chunks/4830a_react-dom_779571ec._.js",
-      "static/chunks/2440c__pnpm_dfd59234._.js",
-      "static/chunks/[root-of-the-server]__dd1a8cf8._.js",
-      "static/chunks/Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__error_2da965e7._.js",
-      "static/chunks/turbopack-Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__error_295604e1._.js"
-    ]
+    "/_app": []
   },
   "devFiles": [],
   "polyfillFiles": [],
