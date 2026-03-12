@@ -1,49 +1,11 @@
 globalThis.__BUILD_MANIFEST = {
   "pages": {
-    "/_app": [
-      "static/chunks/f09eb_next_dist_compiled_f52a9533._.js",
-      "static/chunks/f09eb_next_dist_shared_lib_7f82b5de._.js",
-      "static/chunks/f09eb_next_dist_client_193fc2d5._.js",
-      "static/chunks/f09eb_next_dist_5d574e73._.js",
-      "static/chunks/f09eb_next_app_25ced0cb.js",
-      "static/chunks/[next]_entry_page-loader_ts_a252f0c1._.js",
-      "static/chunks/4830a_react-dom_779571ec._.js",
-      "static/chunks/2440c__pnpm_dfd59234._.js",
-      "static/chunks/[root-of-the-server]__51e020db._.js",
-      "static/chunks/Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__app_2da965e7._.js",
-      "static/chunks/turbopack-Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__app_3ccdd71e._.js"
-    ],
-    "/_error": [
-      "static/chunks/f09eb_next_dist_compiled_f52a9533._.js",
-      "static/chunks/f09eb_next_dist_shared_lib_bec91561._.js",
-      "static/chunks/f09eb_next_dist_client_193fc2d5._.js",
-      "static/chunks/f09eb_next_dist_8ecd854c._.js",
-      "static/chunks/f09eb_next_error_681b182f.js",
-      "static/chunks/[next]_entry_page-loader_ts_c4cf1968._.js",
-      "static/chunks/4830a_react-dom_779571ec._.js",
-      "static/chunks/2440c__pnpm_dfd59234._.js",
-      "static/chunks/[root-of-the-server]__dd1a8cf8._.js",
-      "static/chunks/Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__error_2da965e7._.js",
-      "static/chunks/turbopack-Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_pages__error_295604e1._.js"
-    ]
+    "/_app": []
   },
   "devFiles": [],
-  "polyfillFiles": [
-    "static/chunks/f09eb_next_dist_build_polyfills_polyfill-nomodule.js"
-  ],
+  "polyfillFiles": [],
   "lowPriorityFiles": [],
-  "rootMainFiles": [
-    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_1a38db65._.js",
-    "static/chunks/f09eb_next_dist_compiled_react-dom_0f2765ec._.js",
-    "static/chunks/f09eb_next_dist_compiled_react-server-dom-turbopack_44983f0a._.js",
-    "static/chunks/f09eb_next_dist_compiled_next-devtools_index_1a181677.js",
-    "static/chunks/f09eb_next_dist_compiled_dc5a027e._.js",
-    "static/chunks/f09eb_next_dist_client_a6666df6._.js",
-    "static/chunks/f09eb_next_dist_6e229960._.js",
-    "static/chunks/e559f_@swc_helpers_cjs_c6a782a5._.js",
-    "static/chunks/Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_a0ff3932._.js",
-    "static/chunks/turbopack-Documents_ByPotomac SDK Docs_ByPotomac-API-Docs_1c449fe0._.js"
-  ]
+  "rootMainFiles": []
 };
 globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
 "/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",

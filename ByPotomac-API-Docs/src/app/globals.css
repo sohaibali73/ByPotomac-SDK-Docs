@@ -1,6 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-potomac-yellow: #FEC00F;
+  --color-potomac-gray: #2D3436;
+  --color-potomac-turquoise: #00DED1;
+  --color-potomac-pink: #E91E63;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  --font-quicksand: 'Quicksand', sans-serif;
+}
 
 @layer base {
   html {
@@ -8,7 +15,8 @@
   }
   
   body {
-    @apply text-potomac-gray bg-white;
+    color: var(--color-potomac-gray);
+    background-color: white;
   }
 }
 
@@ -137,4 +145,26 @@
   .hidden-desktop {
     display: none;
   }
+}
+
+/* Documentation content styles */
+.doc-content {
+  line-height: 1.75;
+}
+
+.doc-content > *:first-child {
+  margin-top: 0;
+}
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

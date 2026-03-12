@@ -47,21 +47,21 @@ export default function HomePage() {
       color: 'bg-potomac-yellow',
     },
     {
-      title: 'Chat API',
-      description: 'Integrate AI-powered chat with streaming responses.',
-      href: '/docs/chat',
+      title: 'API Reference',
+      description: 'Complete API endpoint documentation with examples.',
+      href: '/docs/api-reference',
       color: 'bg-potomac-turquoise',
     },
     {
-      title: 'Knowledge Base',
-      description: 'Manage documents and semantic search capabilities.',
-      href: '/docs/knowledge-base',
+      title: 'Streaming',
+      description: 'Real-time data streaming and Server-Sent Events.',
+      href: '/docs/streaming',
       color: 'bg-potomac-pink',
     },
     {
-      title: 'Files API',
-      description: 'Upload, manage, and process files and documents.',
-      href: '/docs/files',
+      title: 'Security',
+      description: 'Enterprise-grade security and compliance features.',
+      href: '/docs/security',
       color: 'bg-potomac-gray',
     },
   ];
@@ -186,7 +186,7 @@ export default function HomePage() {
                   <Link href="/api-reference" className="btn-primary text-lg px-8 py-3 focus-ring">
                     Explore API
                   </Link>
-                  <Link href="/docs/getting-started" className="btn-secondary text-lg px-8 py-3 focus-ring">
+                  <Link href="/docs/overview" className="btn-secondary text-lg px-8 py-3 focus-ring">
                     Quick Start
                   </Link>
                 </div>
@@ -421,7 +421,7 @@ export default function HomePage() {
               <Link href="/api-reference" className="btn-primary bg-white text-potomac-gray text-lg px-8 py-4 font-bold hover:bg-gray-100 focus-ring">
                 Explore API Documentation
               </Link>
-              <Link href="/docs/getting-started" className="btn-secondary bg-transparent border-2 border-white text-white text-lg px-8 py-4 font-bold hover:bg-white hover:text-potomac-gray focus-ring">
+              <Link href="/docs/overview" className="btn-secondary bg-transparent border-2 border-white text-white text-lg px-8 py-4 font-bold hover:bg-white hover:text-potomac-gray focus-ring">
                 Read Getting Started Guide
               </Link>
             </div>
@@ -456,22 +456,22 @@ export default function HomePage() {
             <div>
               <h4 className="font-rajdhani font-bold mb-4">Documentation</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/docs" className="hover:text-white transition-colors">Getting Started</Link></li>
+                <li><Link href="/docs/overview" className="hover:text-white transition-colors">Getting Started</Link></li>
                 <li><Link href="/docs/authentication" className="hover:text-white transition-colors">Authentication</Link></li>
-                <li><Link href="/docs/chat" className="hover:text-white transition-colors">Chat API</Link></li>
-                <li><Link href="/docs/knowledge-base" className="hover:text-white transition-colors">Knowledge Base</Link></li>
-                <li><Link href="/docs/files" className="hover:text-white transition-colors">Files API</Link></li>
+                <li><Link href="/docs/api-reference" className="hover:text-white transition-colors">API Reference</Link></li>
+                <li><Link href="/docs/streaming" className="hover:text-white transition-colors">Streaming</Link></li>
+                <li><Link href="/docs/security" className="hover:text-white transition-colors">Security</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-rajdhani font-bold mb-4">Support</h4>
+              <h4 className="font-rajdhani font-bold mb-4">Resources</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/api-reference" className="hover:text-white transition-colors">API Reference</Link></li>
-                <li><Link href="/guides" className="hover:text-white transition-colors">Developer Guides</Link></li>
+                <li><Link href="/docs/deployment" className="hover:text-white transition-colors">Deployment</Link></li>
+                <li><Link href="/docs/platform-overview" className="hover:text-white transition-colors">Platform SDKs</Link></li>
                 <li><Link href="/support" className="hover:text-white transition-colors">Contact Support</Link></li>
-                <li><Link href="/status" className="hover:text-white transition-colors">System Status</Link></li>
-                <li><Link href="/changelog" className="hover:text-white transition-colors">Changelog</Link></li>
+                <li><Link href="/docs/observability" className="hover:text-white transition-colors">Observability</Link></li>
+                <li><Link href="/docs/testing" className="hover:text-white transition-colors">Testing</Link></li>
               </ul>
             </div>
           </div>
@@ -481,9 +481,9 @@ export default function HomePage() {
               © 2026 Potomac Fund Management. Built to Conquer Risk®
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</Link>
-              <Link href="/security" className="text-gray-400 hover:text-white text-sm transition-colors">Security</Link>
+              <Link href="/docs/security" className="text-gray-400 hover:text-white text-sm transition-colors">Security</Link>
+              <Link href="/docs/multitenancy" className="text-gray-400 hover:text-white text-sm transition-colors">Compliance</Link>
+              <Link href="/support" className="text-gray-400 hover:text-white text-sm transition-colors">Support</Link>
             </div>
           </div>
         </div>

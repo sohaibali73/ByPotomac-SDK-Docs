@@ -12,7 +12,7 @@ const guides = [
     categoryId: 'getting-started',
     duration: '15 min',
     level: 'Beginner',
-    href: '/guides/getting-started',
+    href: '/docs/overview',
     icon: '🚀',
   },
   {
@@ -22,7 +22,7 @@ const guides = [
     categoryId: 'security',
     duration: '20 min',
     level: 'Intermediate',
-    href: '/guides/authentication',
+    href: '/docs/authentication',
     icon: '🔐',
   },
   {
@@ -32,27 +32,27 @@ const guides = [
     categoryId: 'chat-api',
     duration: '30 min',
     level: 'Intermediate',
-    href: '/guides/real-time-chat',
+    href: '/docs/streaming',
     icon: '💬',
   },
   {
-    title: 'Knowledge Base Integration',
-    description: 'Integrate document processing and semantic search into your applications.',
-    category: 'Knowledge Base',
-    categoryId: 'knowledge-base',
+    title: 'API Reference Documentation',
+    description: 'Complete API endpoint documentation with request/response schemas.',
+    category: 'API',
+    categoryId: 'api',
     duration: '25 min',
     level: 'Intermediate',
-    href: '/guides/knowledge-base',
+    href: '/docs/api-reference',
     icon: '📚',
   },
   {
-    title: 'File Processing and Management',
-    description: 'Handle file uploads, processing, and storage efficiently.',
-    category: 'Files',
-    categoryId: 'files',
+    title: 'Data Models and Schemas',
+    description: 'Understanding the data models and database schemas used by the SDK.',
+    category: 'Data',
+    categoryId: 'data',
     duration: '20 min',
     level: 'Beginner',
-    href: '/guides/file-management',
+    href: '/docs/data-models',
     icon: '📁',
   },
   {
@@ -62,17 +62,17 @@ const guides = [
     categoryId: 'architecture',
     duration: '35 min',
     level: 'Advanced',
-    href: '/guides/multi-tenancy',
+    href: '/docs/multitenancy',
     icon: '🏢',
   },
   {
-    title: 'AI-Powered Features with Claude',
-    description: 'Leverage Anthropic Claude for intelligent features and automation.',
-    category: 'AI Integration',
-    categoryId: 'ai-integration',
+    title: 'System Architecture Overview',
+    description: 'Understanding the overall architecture and components of the ByPotomac SDK.',
+    category: 'Architecture',
+    categoryId: 'architecture',
     duration: '40 min',
     level: 'Advanced',
-    href: '/guides/ai-integration',
+    href: '/docs/architecture',
     icon: '🤖',
   },
   {
@@ -82,37 +82,37 @@ const guides = [
     categoryId: 'development',
     duration: '25 min',
     level: 'Intermediate',
-    href: '/guides/error-handling',
+    href: '/docs/error-handling',
     icon: '🐛',
   },
   {
-    title: 'Performance Optimization',
-    description: 'Optimize your API calls and application performance for better user experience.',
-    category: 'Performance',
-    categoryId: 'performance',
+    title: 'Observability and Monitoring',
+    description: 'Set up logging, monitoring, and debugging for your applications.',
+    category: 'Operations',
+    categoryId: 'operations',
     duration: '30 min',
     level: 'Advanced',
-    href: '/guides/performance',
+    href: '/docs/observability',
     icon: '⚡',
   },
   {
-    title: 'Webhooks and Event Handling',
-    description: 'Set up webhooks to receive real-time notifications and handle events.',
-    category: 'Integration',
-    categoryId: 'integration',
+    title: 'Middleware and Request Pipeline',
+    description: 'Understanding the middleware layer and request processing pipeline.',
+    category: 'Infrastructure',
+    categoryId: 'infrastructure',
     duration: '20 min',
     level: 'Intermediate',
-    href: '/guides/webhooks',
+    href: '/docs/middleware',
     icon: '🔗',
   },
   {
-    title: 'Testing Your API Integration',
-    description: 'Learn how to test your API integration thoroughly with unit and integration tests.',
+    title: 'Testing and Versioning',
+    description: 'Learn how to test your API integration and manage API versions.',
     category: 'Testing',
     categoryId: 'testing',
     duration: '30 min',
     level: 'Intermediate',
-    href: '/guides/testing',
+    href: '/docs/testing',
     icon: '🧪',
   },
   {
@@ -122,7 +122,7 @@ const guides = [
     categoryId: 'deployment',
     duration: '35 min',
     level: 'Advanced',
-    href: '/guides/deployment',
+    href: '/docs/deployment',
     icon: '🚀',
   },
 ];
@@ -268,7 +268,7 @@ function GuidesContent() {
                 Begin with our getting started guide to set up your environment and make your first API calls.
               </p>
               <Link
-                href="/guides/getting-started"
+                href="/docs/overview"
                 className="inline-block bg-white text-potomac-gray px-4 py-2 rounded-lg font-rajdhani font-bold hover:bg-gray-100 transition-colors"
               >
                 Get Started
@@ -280,7 +280,7 @@ function GuidesContent() {
                 Learn authentication best practices to keep your application and user data secure.
               </p>
               <Link
-                href="/guides/authentication"
+                href="/docs/authentication"
                 className="inline-block bg-white text-potomac-gray px-4 py-2 rounded-lg font-rajdhani font-bold hover:bg-gray-100 transition-colors"
               >
                 Learn Security
@@ -292,7 +292,7 @@ function GuidesContent() {
                 Deploy your application to production with proper configuration and monitoring.
               </p>
               <Link
-                href="/guides/deployment"
+                href="/docs/deployment"
                 className="inline-block bg-white text-potomac-gray px-4 py-2 rounded-lg font-rajdhani font-bold hover:bg-gray-100 transition-colors"
               >
                 Deploy Now
